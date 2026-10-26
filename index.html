@@ -175,10 +175,95 @@ ctx.fillStyle='#101719';ctx.beginPath();ctx.arc(2,2,11,0,Math.PI*2);ctx.fill();c
 }else{rect(-19,-23,38,47,'#242b2a');rect(-17,-21,34,43,'#faf7ec');rect(-13,-17,26,26,'#75afbc');poly([[-13,9],[-4,-3],[1,2],[8,-7],[13,1],[13,9]],'#416b57');rect(-10,13,20,3,'#cebd9d');rect(-10,18,14,2,'#cebd9d');rect(7,-13,4,4,'#f6efba')}ctx.restore()}
 function lumenGirl(cx,base){ctx.save();ctx.translate(cx,base);rect(-10,-44,10,24,'#9fb6d1');rect(2,-44,10,24,'#9fb6d1');rect(-10,-20,8,20,'#7390b4');rect(4,-20,8,20,'#7390b4');rect(-14,-78,30,36,'#f3efdf');rect(-12,-86,8,10,'#f3efdf');rect(-6,-105,16,19,'#c79267');rect(-16,-109,36,10,'#4a3427');rect(-19,-101,14,20,'#4a3427');rect(8,-101,16,22,'#4a3427');rect(14,-80,8,26,'#4a3427');rect(-22,-68,8,22,'#f3efdf');rect(18,-69,8,22,'#f3efdf');mediaIcon(-23,-52,'camera',.57);ctx.beginPath();ctx.strokeStyle='#202020';ctx.lineWidth=2;ctx.moveTo(-14,-50);ctx.lineTo(-6,-56);ctx.stroke();rect(-4,-103,3,3,'#141414');rect(4,-103,3,3,'#141414');rect(-1,-95,6,2,'#cb8b77');ctx.restore()}
 function weissStand(cx,base){ctx.save();ctx.translate(cx,base);rect(-52,-69,104,69,'#f1ebdb');rect(-52,-73,104,10,'#242b23');for(let i=0;i<7;i++)rect(-52+i*15,-63,15,14,i%2?'#ebe8d6':'#ae563a');rect(-38,-42,75,26,'#3a4639');rect(-56,-17,112,8,'#c2a475');rect(-48,-9,96,9,'#70684e');rect(-58,-108,116,29,'#141414');ctx.fillStyle='#f2f1ec';ctx.font='bold 13px Arial';ctx.textAlign='center';ctx.fillText('WEISS BURGER',0,-89);rect(-53,-81,3,12,'#424a3e');rect(50,-81,3,12,'#424a3e');foodIcon(-17,-31,'burger',.62);foodIcon(18,-33,'beer',.57);ctx.font='7px monospace';ctx.fillStyle='#343c31';ctx.fillText('UNA PAUSA EN EL CAMINO',0,16);ctx.restore()}
-function lumenStand(cx,base){ctx.save();ctx.translate(cx,base);lumenGirl(0,0);ctx.fillStyle='#141414';ctx.textAlign='center';ctx.font='bold 10px Arial';ctx.fillText('LUMEN ESTUDIO CREATIVO',0,-124);const shutter=time%2.3,flash=shutter<.17; if(flash){const strength=1-shutter/.17;ctx.save();ctx.globalAlpha=.3+.7*strength;ctx.fillStyle='#ffffff';ctx.fillRect(-47,-69,46,29);ctx.translate(-28,-54);ctx.fillStyle='#ffffff';ctx.beginPath();for(let i=0;i<16;i++){const a=i*Math.PI/8,r=i%2===0?32:11;const px=Math.cos(a)*r,py=Math.sin(a)*r;i?ctx.lineTo(px,py):ctx.moveTo(px,py)}ctx.closePath();ctx.fill();ctx.fillStyle='#D4F31B';ctx.fillRect(-7,-7,14,14);ctx.restore()}ctx.restore()}
+function lumenStand(cx,base){ctx.save();ctx.translate(cx,base);lumenGirl(0,0);ctx.fillStyle='#141414';ctx.textAlign='center';ctx.font='bold 10px Arial';ctx.fillText('LUMEN ESTUDIO CREATIVO',0,-124);const flash=Math.sin(time*12)>.05;ctx.strokeStyle=flash?'#D4F31B':'#f2f1ec';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-43,-89);ctx.lineTo(-43,-77);ctx.moveTo(-49,-83);ctx.lineTo(-37,-83);ctx.moveTo(41,-100);ctx.lineTo(41,-88);ctx.moveTo(35,-94);ctx.lineTo(47,-94);ctx.stroke();ctx.restore()}
+/* NUEVAS MARCAS — objetos escénicos independientes; no modifican reglas, colisiones ni formularios. */
+const PATAGON_CASA=7680, ESTRATEGIA_ROBOT=7250;
+// Logo encontrado en el perfil público de Patagon: si no carga, la casita siempre muestra una versión dibujada localmente.
+const patagonLogo=new Image();
+patagonLogo.src='https://prospeo-static-assets.s3.us-east-1.amazonaws.com/company_logo/d996bb84-b3c5-44ee-b725-aa261b62b971.jpg';
+function brandLettering(label,atx,aty,width=140){
+ ctx.save();ctx.font='bold 10px monospace';ctx.textAlign='center';const tw=ctx.measureText(label).width;
+ rect(atx-Math.max(width,tw+18)/2,aty-13,Math.max(width,tw+18),20,'#141414');
+ ctx.fillStyle='#f9f7ed';ctx.fillText(label,atx,aty+1);ctx.restore();
+}
+function patagonCabin(cx,base){
+ ctx.save();ctx.translate(Math.round(cx),Math.round(base));
+ // Piedra de base y cabaña patagónica, cuerpo en madera y techo en planos pixel-art.
+ rect(-65,-7,130,9,'#4d594d');rect(-61,-88,122,82,'#a97952');
+ for(let i=0;i<7;i++){rect(-60,-85+i*11,120,2,i%2?'#c49b70':'#815a41');}
+ rect(-66,-96,132,11,'#4a5148');
+ poly([[-78,-95],[-9,-148],[11,-148],[79,-95]],'#283e37');
+ poly([[-62,-101],[-7,-140],[6,-140],[60,-101]],'#405a50');
+ rect(-70,-102,140,7,'#263b35');
+ rect(-16,-73,34,66,'#574d42');rect(-12,-70,26,62,'#c69d70');rect(-8,-67,18,58,'#374b42');
+ rect(4,-44,4,5,'#f2e0a9');
+ // Ventanas cálidas en estilo 8-bit.
+ for(const wx of [-48,36]){rect(wx,-71,21,26,'#233a38');rect(wx+4,-67,13,18,'#bde3d5');rect(wx+10,-67,2,18,'#415c56');rect(wx+4,-59,13,2,'#415c56');rect(wx-2,-44,25,4,'#513f32');}
+ rect(-72,-9,144,6,'#243b31');rect(-66,-6,133,4,'#66805e');
+ // Cartel de la agencia con su isotipo y marca.
+ rect(-47,-123,94,32,'#141414');rect(-45,-121,90,28,'#212725');
+ if(patagonLogo.complete&&patagonLogo.naturalWidth>0){
+  ctx.drawImage(patagonLogo,-42,-120,28,26);
+ }else{
+  // Versión pixelada local del isotipo de cabeza de animal que usa Patagon.
+  ctx.save();ctx.translate(-28,-107);ctx.fillStyle='#f2f1ec';
+  poly([[-13,-2],[-9,-10],[0,-14],[11,-13],[11,-5],[7,5],[-3,8],[-12,2]],'#f2f1ec');
+  poly([[3,-12],[9,-20],[13,-20],[8,-11]],'#f2f1ec');
+  poly([[9,-10],[17,-17],[19,-16],[13,-7]],'#f2f1ec');
+  rect(-5,-7,3,3,'#141414');ctx.restore();
+ }
+ ctx.textAlign='center';ctx.fillStyle='#f8f7f2';ctx.font='bold 12px Arial';ctx.fillText('PATAGON',13,-106);
+ ctx.font='bold 6px monospace';ctx.fillText('ESTUDIO',13,-97);
+ // Chimenea y una nubecita que aparece al pasar, sutilmente animada.
+ rect(38,-136,13,24,'#65594c');rect(36,-138,17,5,'#2b3935');
+ const puff=Math.sin(time*1.8)*3;
+ rect(48,-157+puff,8,7,'#f3f5e5a8');rect(57,-166+puff,10,6,'#f3f5e588');
+ // Un toque de naturaleza como parte de la escena.
+ tree(-87,0,51,'#2f6651');tree(91,0,44,'#3f7158');
+ brandLettering('PATAGON ESTUDIO',0,-158,138);
+ ctx.restore();
+}
+function estrategiaRobot(cx,base){
+ ctx.save();ctx.translate(Math.round(cx),Math.round(base));
+ ctx.scale(.78,.78);
+ const bob=Math.sin(time*3.7)*2;
+ // Sombra + plataforma baja para que el robot no se confunda con un enemigo.
+ rect(-47,-5,94,5,'#52665c');rect(-38,-10,76,6,'#aabcb2');
+ // Piernas y zapaticos.
+ rect(-18,-33,12,27,'#4c5f76');rect(9,-33,12,27,'#4c5f76');
+ rect(-24,-8,20,7,'#293e55');rect(8,-8,20,7,'#293e55');
+ // Cuerpo robot: menta + azul oscuro, distinto de los mini-demonios.
+ rect(-28,-91+bob,58,59,'#2b4d62');rect(-24,-88+bob,50,53,'#b8e9e3');
+ rect(-19,-81+bob,40,24,'#426c7a');
+ rect(-18,-53+bob,39,4,'#6ea99e');rect(-10,-45+bob,23,5,'#f5e9ad');
+ // Brazos articulados y manos sobre la laptop.
+ rect(-41,-76+bob,15,13,'#2d4658');rect(-46,-68+bob,10,22,'#9bb7b4');
+ rect(29,-76+bob,15,13,'#2d4658');rect(36,-68+bob,10,22,'#9bb7b4');
+ rect(-47,-44+bob,15,7,'#2b5360');rect(34,-44+bob,15,7,'#2b5360');
+ // Cuello, cabeza con orejas cuadradas y antena luminosa.
+ rect(-9,-99+bob,21,11,'#526a72');rect(-34,-136+bob,67,42,'#263e53');
+ rect(-30,-132+bob,59,35,'#d0f0e9');rect(-38,-125+bob,8,17,'#597a82');rect(29,-125+bob,8,17,'#597a82');
+ rect(-5,-151+bob,6,15,'#364f67');rect(-9,-155+bob,14,7,'#D4F31B');
+ // Ojos LED y sonrisa que alterna en animación, robot amistoso.
+ const blink=Math.sin(time*3.2)>0.94;
+ rect(-18,-121+bob,12,blink?3:10,'#254d63');rect(7,-121+bob,12,blink?3:10,'#254d63');
+ rect(-9,-106+bob,19,3,'#507d75');rect(-5,-103+bob,12,3,'#507d75');
+ // Laptop abierta en primer plano. Se reconoce pantalla, teclado y brillo.
+ poly([[-33,-69+bob],[32,-69+bob],[26,-35+bob],[-27,-35+bob]],'#26363f');
+ poly([[-28,-65+bob],[27,-65+bob],[22,-40+bob],[-22,-40+bob]],'#a7d2d3');
+ rect(-9,-57+bob,18,5,'#D4F31B');rect(-15,-48+bob,30,3,'#607b8b');
+ poly([[-38,-35+bob],[36,-35+bob],[48,-28+bob],[-48,-28+bob]],'#313d4c');
+ rect(-27,-32+bob,54,3,'#839b9d');rect(-9,-30+bob,22,2,'#D4F31B');
+ // Píxeles de análisis/datos que salen de la notebook.
+ const shimmer=Math.sin(time*4)>0;
+ rect(-57,-125+bob,7,7,shimmer?'#D4F31B':'#f3eac8');rect(52,-112+bob,5,5,'#D4F31B');
+ rect(48,-142+bob,7,4,'#bfeee3');rect(-51,-146+bob,10,4,'#bfeee3');
+ brandLettering('ESTRATEGIA.DS',0,-169,150);
+ ctx.restore();
+}
 function snowIntensity(scene){return scene!==1?0:mode==='intro'?.55:Math.max(0,Math.min(1,(x-3050)/450,(5350-x)/450))}
 function drawSnow(scene,front){const strength=snowIntensity(scene);if(strength<=0)return;ctx.save();if(!front){ctx.fillStyle='#f0f5f7';ctx.globalAlpha=strength*.11;ctx.fillRect(0,0,W,H);ctx.globalAlpha=strength*.8;rect(0,ground-3,W,8,'#e9f3ef')}const count=Math.min(100,Math.ceil(W/(front?19:12)));for(let i=0;i<count;i++){const seed=i+front*127,period=H+60,fx=((seed*97.37-time*(front?28:14)+Math.sin(time*.8+seed)*13)%(W+50)+W+50)%(W+50)-25,fy=((seed*73.17+time*(front?55:32))%period)-30,r=front?1.6+seed%3*.5:1+seed%2*.3;ctx.globalAlpha=strength*(front?.85:.55);ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(fx,fy,r,0,Math.PI*2);ctx.fill()}ctx.restore()}
-function draw(){ctx.clearRect(0,0,W,H);const scene=mode==='intro'?Math.floor(time/6)%3:Math.min(2,Math.floor(x/2700));barilocheScene(scene);drawSnow(scene,0);const px=Math.min(PLAYERX,W*.3);ctx.save();ctx.translate(px-PLAYERX,0);for(const ob of obstacles){const dx=PLAYERX+ob.x-x;if(dx<-100||dx>W+100)continue;if(hit.has(ob.id)&&boost>0)continue;miniDemon(dx,ground,ob);ctx.font='bold 8px monospace';ctx.textAlign='center';const lines=ob.label.split('|'),labelW=Math.max(...lines.map(line=>ctx.measureText(line).width))+12,labelH=lines.length*11+8,labelY=ground-ob.h-15-labelH;rect(dx-labelW/2,labelY,labelW,labelH,'#141414');ctx.fillStyle='#f2f1ec';lines.forEach((line,j)=>ctx.fillText(line,dx,labelY+11+j*11))}for(const a of ideas){if(taken.has(a.id))continue;const dx=PLAYERX+a.x-x;if(dx<-30||dx>W+50)continue;const yy=ground-a.h+Math.sin(time*3+a.id)*5;if(a.kind!=='idea'){if(a.kind==='burger'||a.kind==='beer'){foodIcon(dx,yy,a.kind,1);ctx.fillStyle='#141414';ctx.font='bold 8px monospace';ctx.textAlign='center';ctx.fillText('WEISS',dx,yy-22)}else{mediaIcon(dx,yy,a.kind,1);ctx.fillStyle='#141414';ctx.font='bold 8px monospace';ctx.textAlign='center';ctx.fillText('LUMEN',dx,yy-24)}continue}ctx.fillStyle='#fce47d';ctx.beginPath();ctx.arc(dx,yy,10,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#ac8f3d';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#735f2f';ctx.font='bold 12px monospace';ctx.textAlign='center';ctx.fillText('+',dx,yy+4)}for(let i=0;i<challenges.length;i++){const dx=PLAYERX+challenges[i].x-x;if(dx<-170||dx>W+170)continue;rect(dx,ground-130,6,130,'#2a4634');rect(dx+6,ground-130,125,37,gatesDone.has(i)?'#D4F31B':'#eaecc8');ctx.fillStyle='#284531';ctx.font='bold 10px monospace';ctx.textAlign='left';ctx.fillText(['MARCA PROPIA','CONTENIDO','IA + CRITERIO'][i],dx+13,ground-108)}const weissX=PLAYERX+WEISS_STOP+85-x;if(weissX>-150&&weissX<W+150)weissStand(weissX,ground);const lumenX=PLAYERX+LUMEN_STOP+95-x;if(lumenX>-190&&lumenX<W+190)lumenStand(lumenX,ground);const endx=PLAYERX+END-x;if(endx<W+300){summitHotel(mode==='epilogue'?W*.30-(px-PLAYERX):endx,ground)}ctx.restore();character();drawSnow(scene,1);for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/.6);rect(p.x,p.y,4,4,p.color)}ctx.globalAlpha=1;ctx.fillStyle='#284d39';ctx.font='10px monospace';ctx.textAlign='left';rect(9,9,Math.min(W-18,355),25,'#ecf6e1e8');ctx.fillStyle='#254c3d';ctx.fillText(mode==='weiss'||x>=2700&&x<3350?'WEISS BURGER / HAMBURGUESA + CERVEZA':mode==='lumen'||x>=6240&&x<6860?'LUMEN ESTUDIO CREATIVO / FOTOGRAFÍA + CONTENIDO':mode==='epilogue'?'LLEGASTE / SHERATON BARILOCHE':['NAHUEL HUAPI / DIFERENCIÁ TU MARCA','CERRO CATEDRAL / ACTIVÁ TU CANAL ONLINE','CENTRO CÍVICO / IA CON CRITERIO HUMANO'][scene],17,26)}function frame(t){const dt=Math.min(.032,(t-last)/1000||0);last=t;update(dt);audioTick();draw();requestAnimationFrame(frame)}$('jump').addEventListener('pointerdown',e=>{e.preventDefault();jump()});canvas.addEventListener('pointerdown',e=>{e.preventDefault();jump()});$('boost').onclick=power;$('pause').onclick=pause;document.addEventListener('keydown',e=>{if(e.target instanceof Element&&e.target.closest('input,textarea,select,[contenteditable=true]'))return;if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(!e.repeat)jump()}if(e.code==='KeyX'&&!e.repeat)power();if(e.code==='KeyP'||e.code==='Escape'){if(mode==='run'||mode==='paused')pause()}});document.addEventListener('visibilitychange',()=>{if(document.hidden){silenceAudio();if(mode==='run')pause()}});
+function draw(){ctx.clearRect(0,0,W,H);const scene=mode==='intro'?Math.floor(time/6)%3:Math.min(2,Math.floor(x/2700));barilocheScene(scene);drawSnow(scene,0);const px=Math.min(PLAYERX,W*.3);ctx.save();ctx.translate(px-PLAYERX,0);const patagonX=PLAYERX+PATAGON_CASA-x;if(patagonX>-190&&patagonX<W+190)patagonCabin(patagonX,ground);const estrategiaX=PLAYERX+ESTRATEGIA_ROBOT-x;if(estrategiaX>-160&&estrategiaX<W+160)estrategiaRobot(estrategiaX,ground);for(const ob of obstacles){const dx=PLAYERX+ob.x-x;if(dx<-100||dx>W+100)continue;if(hit.has(ob.id)&&boost>0)continue;miniDemon(dx,ground,ob);ctx.font='bold 8px monospace';ctx.textAlign='center';const lines=ob.label.split('|'),labelW=Math.max(...lines.map(line=>ctx.measureText(line).width))+12,labelH=lines.length*11+8,labelY=ground-ob.h-15-labelH;rect(dx-labelW/2,labelY,labelW,labelH,'#141414');ctx.fillStyle='#f2f1ec';lines.forEach((line,j)=>ctx.fillText(line,dx,labelY+11+j*11))}for(const a of ideas){if(taken.has(a.id))continue;const dx=PLAYERX+a.x-x;if(dx<-30||dx>W+50)continue;const yy=ground-a.h+Math.sin(time*3+a.id)*5;if(a.kind!=='idea'){if(a.kind==='burger'||a.kind==='beer'){foodIcon(dx,yy,a.kind,1);ctx.fillStyle='#141414';ctx.font='bold 8px monospace';ctx.textAlign='center';ctx.fillText('WEISS',dx,yy-22)}else{mediaIcon(dx,yy,a.kind,1);ctx.fillStyle='#141414';ctx.font='bold 8px monospace';ctx.textAlign='center';ctx.fillText('LUMEN',dx,yy-24)}continue}ctx.fillStyle='#fce47d';ctx.beginPath();ctx.arc(dx,yy,10,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#ac8f3d';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#735f2f';ctx.font='bold 12px monospace';ctx.textAlign='center';ctx.fillText('+',dx,yy+4)}for(let i=0;i<challenges.length;i++){const dx=PLAYERX+challenges[i].x-x;if(dx<-170||dx>W+170)continue;rect(dx,ground-130,6,130,'#2a4634');rect(dx+6,ground-130,125,37,gatesDone.has(i)?'#D4F31B':'#eaecc8');ctx.fillStyle='#284531';ctx.font='bold 10px monospace';ctx.textAlign='left';ctx.fillText(['MARCA PROPIA','CONTENIDO','IA + CRITERIO'][i],dx+13,ground-108)}const weissX=PLAYERX+WEISS_STOP+85-x;if(weissX>-150&&weissX<W+150)weissStand(weissX,ground);const lumenX=PLAYERX+LUMEN_STOP+95-x;if(lumenX>-190&&lumenX<W+190)lumenStand(lumenX,ground);const endx=PLAYERX+END-x;if(endx<W+300){summitHotel(mode==='epilogue'?W*.30-(px-PLAYERX):endx,ground)}ctx.restore();character();drawSnow(scene,1);for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/.6);rect(p.x,p.y,4,4,p.color)}ctx.globalAlpha=1;ctx.fillStyle='#284d39';ctx.font='10px monospace';ctx.textAlign='left';rect(9,9,Math.min(W-18,355),25,'#ecf6e1e8');ctx.fillStyle='#254c3d';ctx.fillText(mode==='weiss'||x>=2700&&x<3350?'WEISS BURGER / HAMBURGUESA + CERVEZA':mode==='lumen'||x>=6240&&x<6860?'LUMEN ESTUDIO CREATIVO / FOTOGRAFÍA + CONTENIDO':mode==='epilogue'?'LLEGASTE / SHERATON BARILOCHE':x>=7540&&x<=7920?'PATAGON ESTUDIO / CREATIVIDAD PATAGÓNICA':x>=7060&&x<=7360?'ESTRATEGIA.DS / IA CON CRITERIO':['NAHUEL HUAPI / DIFERENCIÁ TU MARCA','CERRO CATEDRAL / ACTIVÁ TU CANAL ONLINE','CENTRO CÍVICO / IA CON CRITERIO HUMANO'][scene],17,26)}function frame(t){const dt=Math.min(.032,(t-last)/1000||0);last=t;update(dt);audioTick();draw();requestAnimationFrame(frame)}$('jump').addEventListener('pointerdown',e=>{e.preventDefault();jump()});canvas.addEventListener('pointerdown',e=>{e.preventDefault();jump()});$('boost').onclick=power;$('pause').onclick=pause;document.addEventListener('keydown',e=>{if(e.target instanceof Element&&e.target.closest('input,textarea,select,[contenteditable=true]'))return;if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(!e.repeat)jump()}if(e.code==='KeyX'&&!e.repeat)power();if(e.code==='KeyP'||e.code==='Escape'){if(mode==='run'||mode==='paused')pause()}});document.addEventListener('visibilitychange',()=>{if(document.hidden){silenceAudio();if(mode==='run')pause()}});
 const LEADS_API='https://gratis-agencia-game.cuddlyalder8.chatgpt.site/api/portable';let participantToken='';try{participantToken=sessionStorage.getItem('gratis-participant-token')||''}catch{}
 let formPrevious='intro',formBusy=false;
 const dialog=$('leadDialog');const escapeHtml=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
